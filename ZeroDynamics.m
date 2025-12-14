@@ -1,7 +1,7 @@
 function y = ZeroDynamics()
 clear; close all; clc;
 
-%% Define Parameters from Spong95 Table 1
+%% Define Parameters from Spong
 m1 = 1;           % Mass of link 1
 m2 = 1;           % Mass of link 2 (NOTE: Spong uses m2=1, not 2!)
 l1 = 1;           % Length of link 1
@@ -162,7 +162,7 @@ function dzdt = zero_dynamics_ode(t, z, params)
     % Inertia coefficient
     J = m2*l_cl2^2 + m2*l1*l_cl2*cos(q2) + I2;
     
-    % Zero dynamics equation (23)
+    % Zero dynamics
     coriolis_term = m2*l1*l_cl2*sin(q2)*dq2^2;
     gravity_term = m2*l_cl2*g*sin(q2);
     
@@ -190,10 +190,10 @@ function q2_0 = initial_energy(E_target, center, params)
         return;
     end
     
-    % Finding solution near q2=0 for center countour
+   
     if abs(center) < pi/4  
         q2_0 = acos(cos_q2);
-    else  % At a saddle
+    else  
         q2_0 = pi - acos(-cos_q2);
         if center < 0
             q2_0 = -q2_0;

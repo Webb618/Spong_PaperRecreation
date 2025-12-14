@@ -134,8 +134,7 @@ fprintf('\n');
 %Spong notation
 fprintf('Converting to Spong (1995) notation...\n\n');
 
-% Spong uses: d11, d12, d22, h1, h2, phi1, phi2
-% Equation form: [d11 d12; d12 d22]*[d2q1; d2q2] + [h1; h2] + [phi1; phi2] = [0; tau]
+
 
 % Extract mass matrix elements
 d11 = D(1,1);
@@ -149,7 +148,7 @@ fprintf('d12 = d21 = '); disp(d12);
 fprintf('d22 = '); disp(d22);
 fprintf('\n');
 
-% Finding h terms (coriolis/centrifugal) and phi 
+
 
 % Gravity terms (terms with g)
 phi1 = -simplify(subs(Tau(1), [dq1, dq2], [0, 0]));

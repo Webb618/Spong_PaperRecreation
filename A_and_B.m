@@ -1,5 +1,6 @@
 function [A,B] = A_and_B(q1_ref)
-
+% Uses spongs equations to find the symbolic jacobians than plugs in the
+% appropraite values.
 syms q1 q2 dq1 dq2 u
 m1 = 1;   m2 = 1;
 l1 = 1;   l2 = 2;

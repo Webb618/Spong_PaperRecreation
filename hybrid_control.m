@@ -5,6 +5,8 @@ function u = hybrid_control(x, p, q1_ref, kp, kd,K,t, SIGMA, resetLatch, LQR)
     if isempty(latched) || (nargin >= 20 && resetLatch)
         latched = false;
     end
+    % We wrap q1 and q2 so that the LQR region reflects the real position
+    % of q1 and q2
     q1_wrapped = mod((q1 )+pi, 2*pi) -pi;
     q2_wrapped = mod((q2 )+pi, 2*pi) -pi;
     x_ref = [q1_ref;pi/2 - q1_ref; 0; 0];
@@ -12,6 +14,9 @@ function u = hybrid_control(x, p, q1_ref, kp, kd,K,t, SIGMA, resetLatch, LQR)
     dx2_wrapped = q2_wrapped-x_ref(2);
     dx_wrapped = [dx1_wrapped;dx2_wrapped;x(3);x(4)];
     
+    %LQR region is chosen so that as the pendulum approaches equilibrium on
+    %an up swing the LQR will catch it early and bring it up the rest of
+    %the way to equilibrium
     LQR_region = (abs(dx1_wrapped )< 0.6) && ...
                     (abs(dx2_wrapped) < 0.8)  && abs(dq2)< 2.0 && abs(dq1) < 1.5; 
     if ~latched
